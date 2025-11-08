@@ -1,0 +1,532 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	text-decoration: none;
+	font-family: sans-serif;
+}
+
+:root {
+	--bg-color: #000;
+	--text-color: #FFF;
+	--main-color: #a54bff;
+}
+
+html {
+	font-size: 62.5%;
+	scroll-behavior: smooth;
+}
+
+body {
+	background: var(--bg-color);
+	color: var(--text-color);
+}
+
+.footer {
+	background: rgba(0, 0, 0, 0.9);
+	color: var(--text-color);
+	padding-top: 10px;
+	text-align: center;
+	height: 50px;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	font-weight: 300;
+	font-size: 1.3rem;
+	border-top: 1px solid var(--main-color);
+}
+
+.cabecalho {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	padding: 1rem 9% 1rem 9%;
+	background: rgba(0, 0, 0, 0.8);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	z-index: 100;
+	transition: 0.3s;
+	border-bottom: 1px solid var(--main-color);
+}
+
+.cabecalho,
+.footer {
+	box-shadow: 0 0 20px rgba(165, 75, 255, 0.5);
+}
+
+.barra-navegacao {
+	display: flex;
+	align-items: center;
+}
+
+.barra-navegacao a {
+	font-size: 1.7rem;
+	color: var(--text-color);
+	font-weight: 500;
+	margin-left: 3.5rem;
+	transition: .3s;
+	position: relative;
+}
+
+.barra-navegacao a:hover,
+.barra-navegacao a.ativo {
+	color: var(--main-color);
+}
+
+section {
+	min-height: 100vh;
+	padding: 10rem 9% 2rem;
+}
+
+#inicio {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 10rem 2rem 2rem;
+	position: relative;
+}
+
+#boas-vindas {
+	position: relative;
+	text-align: center;
+	max-width: 60rem;
+	margin: 3rem 0 3rem 0;
+}
+
+#boas-vindas h3 {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	font-weight: 300;
+	font-size: 2.5rem
+}
+
+#boas-vindas h1 {
+	font-size: 9rem;
+	font-weight: 700;
+	line-height: 1.3;
+}
+
+#boas-vindas h1 span {
+	color: var(--text-color);
+}
+
+.profissao {
+	font-size: 3rem;
+	color: var(--main-color);
+	text-align: center;
+}
+
+.logo span {
+	display: flex;
+	align-items: center;
+	border-radius: 50px;
+	color: var(--text-color);
+	font-size: 1.8rem;
+	font-weight: bold;
+	transition: all 0.3s ease;
+	cursor: pointer;
+}
+
+.logo img {
+	height: 90px;
+	z-index: 100;
+}
+
+.logo span:hover {
+	transform: scale(1.1);
+}
+
+.redes-sociais {
+	margin-top: 5rem;
+	width: 90px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.redes-sociais a {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	width: 40px;
+	height: 40px;
+	border: .2rem solid var(--main-color);
+	border-radius: 100%;
+	color: var(--main-color);
+	transition: .5s;
+	position: relative;
+	overflow: hidden;
+	z-index: 1;
+	padding: 1px 0px 0px 1px;
+}
+
+.icone-github {
+	font-size: 23px;
+}
+
+.icone-linkedin {
+	font-size: 18px;
+}
+
+.redes-sociais a:hover {
+	color: var(--bg-color);
+}
+
+.redes-sociais a::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0%;
+	height: 100%;
+	background: var(--main-color);
+	z-index: -1;
+	transition: .5s;
+}
+
+.redes-sociais a:hover::before {
+	width: 100%;
+}
+
+.tecnologias-container {
+	width: 100%;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 4rem;
+}
+
+.tecnologias-titulo {
+	position: relative;
+	top: auto;
+	margin-bottom: 2rem;
+	font-size: 2rem;
+	color: var(--main-color);
+	text-align: center;
+}
+
+.tecnologia-carrossel {
+	display: flex;
+	gap: 54px;
+	animation: tecnologia-scroll 10s linear infinite alternate;
+}
+
+@keyframes tecnologia-scroll {
+	0% {
+		transform: translateX(21%);
+	}
+
+	100% {
+		transform: translateX(-21%);
+	}
+}
+
+.tecnologia-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-width: 80px;
+}
+
+.tecnologia-item img,
+.tecnologia-item i {
+	width: 48px;
+	height: 48px;
+	object-fit: contain;
+	font-size: 48px;
+	display: block;
+	margin-bottom: 6px;
+}
+
+.tecnologia-item span {
+	color: #aaa;
+	font-size: 1.3rem;
+	margin-top: 0;
+	text-align: center;
+	font-family: 'Fira Code';
+	letter-spacing: 0.5px;
+	user-select: text;
+}
+
+.titulo {
+	font-size: 5rem;
+	margin-bottom: 3rem;
+	text-align: center;
+}
+
+h1 span,
+.titulo span {
+	color: var(--main-color);
+}
+
+#pre-carregamento {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	background: var(--bg-color);
+	z-index: 9999;
+}
+
+#experiencia {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+#experiencia-container {
+	width: 100%;
+	max-width: 900px;
+}
+
+.editor-codigo {
+	background: #1e1e1e;
+	border-radius: 10px;
+	overflow: hidden;
+	width: 80%;
+	margin: auto;
+	box-shadow: 0 0 20px rgba(165, 75, 255, 0.4);
+}
+
+.editor-pontos {
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	background: #2d2d2d;
+	padding: 8px 0;
+	gap: 8px;
+	padding-left: 10px
+}
+
+.ponto {
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	display: inline-block;
+}
+
+.vermelho {
+	background: #ff5f56;
+}
+
+.amarelo {
+	background: #ffbd2e;
+}
+
+.verde {
+	background: #27c93f;
+}
+
+pre {
+	margin: 0;
+	padding: 15px 20px;
+	color: var(--text-color);
+	font-size: 14px;
+	font-family: "Fira Code", monospace;
+	white-space: pre-line;
+	overflow-x: auto;
+}
+
+pre::first-line {
+	text-indent: -2ch;
+}
+
+.editor-abas {
+	display: flex;
+	background: #252526;
+	border-bottom: 1px solid #1e1e1e;
+}
+
+.editor-abas .aba {
+	padding: 8px 16px;
+	font-family: "Fira Code", monospace;
+	font-size: 13px;
+	color: #ccc;
+	cursor: pointer;
+	border-right: 1px solid #1e1e1e;
+	transition: background 0.2s;
+}
+
+.editor-abas .aba:hover {
+	background: #2d2d2d;
+}
+
+.editor-abas .aba.ativo {
+	background: #1e1e1e;
+	color: var(--text-color);
+}
+
+.exp-conteudo {
+	display: none;
+}
+
+.exp-conteudo.ativo {
+	display: block;
+}
+
+.projetos-conteudo img {
+	width: 100%;
+	display: block;
+	margin: 0 0 1rem 0;
+	border-radius: 0.8rem;
+	object-fit: contain;
+	transition: height 0.3s ease, object-fit 0.3s ease;
+}
+
+.projeto-img-horizontal {
+	height: 10rem
+}
+
+.projeto-img-vertical {
+	height: 20rem
+}
+
+.projetos-container {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 2.5rem;
+	align-items: start;
+	justify-content: center;
+}
+
+#projetos {
+	scroll-margin-top: 90px;
+}
+
+.projetos-box {
+	height: 420px;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 1.6rem;
+	background: #1A1A1A;
+	color: var(--text-color);
+	flex-direction: column;
+	position: relative;
+	border-radius: 2rem;
+	box-shadow: 0 0 1rem var(--main-color);
+	overflow: hidden;
+	display: flex;
+}
+
+.projetos-box:hover {
+	transform: translateY(-5px);
+}
+
+.projetos-box .projetos-conteudo {
+	flex: 1 1 auto;
+	overflow-y: auto;
+	padding-right: 8px;
+	scrollbar-width: thin;
+	scrollbar-color: rgba(165, 75, 255, 0.6) transparent;
+}
+
+.projetos-box .projetos-conteudo h3 {
+	font-size: 2rem;
+	margin-bottom: 1rem;
+	text-align: center;
+}
+
+.projetos-box .projetos-conteudo p {
+	font-size: 1.4rem;
+	margin-bottom: 1.5rem;
+	color: #ccc;
+}
+
+.projetos-box .botao-container {
+	margin-top: 1rem;
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+}
+
+.projetos-box .botao {
+	border: 2px solid var(--text-color);
+	padding: 0.6rem 1.2rem;
+	border-radius: 0.8rem;
+	color: var(--text-color);
+	font-size: 1.4rem;
+	transition: all 0.3s ease;
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.projetos-box .botao:hover {
+	background: var(--main-color);
+	border-color: var(--main-color);
+	color: var(--bg-color);
+}
+
+.menu-toggle {
+	display: none;
+}
+
+@media (max-width: 768px) {
+	section {
+		padding: 0rem;
+	}
+
+	#boas-vindas h1 {
+		font-size: 4.5rem;
+	}
+
+	.profissao {
+		font-size: 2rem;
+	}
+
+	.tecnologia-carrossel {
+		gap: 5px;
+	}
+
+	#experiencia {
+		margin-top: 15rem;
+		scroll-margin-top: 15px;
+	}
+
+	#projetos {
+		margin-top: 35rem;
+		scroll-margin-top: 190px;
+	}
+
+	.projetos-container {
+		display: block;
+		margin: 0 2rem 0 2rem;
+	}
+
+	.projetos-box {
+		margin-bottom: 4rem;
+	}
+
+	.titulo {
+		font-size: 4rem;
+	}
+
+	.barra-navegacao {
+		display: none;
+		flex-direction: column;
+		background: rgba(0, 0, 0, 0.8);
+		position: absolute;
+		top: 115px;
+		right: 0;
+		width: 100%;
+		text-align: center;
+		padding: 10px 0;
+	}
+
+	.barra-navegacao.ativo {
+		display: flex;
+	}
+
+	.menu-toggle {
+		display: block;
+		font-size: 28px;
+		cursor: pointer;
+	}
+
+	.barra-navegacao a {
+		margin: 10px 0;
+		color: white;
+	}
+}
