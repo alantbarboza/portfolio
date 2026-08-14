@@ -50,4 +50,47 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 		cabecalho?.classList.toggle('rolagem-ativa', topo > 50);
 	};
+
+
+	const campoBusca = document.querySelector('#busca-projetos');
+	const resultadoBusca = document.querySelector('#resultado-busca');
+	const projetos = document.querySelectorAll('.projetos-box');
+
+	if (campoBusca) {
+		campoBusca.addEventListener('input', () => {
+			const busca = campoBusca.value.trim().toLowerCase();
+			let encontrados = 0;
+
+			projetos.forEach(projeto => {
+				const titulo =
+					projeto.querySelector('h3')?.textContent.toLowerCase() || '';
+
+				const tecnologias = Array.from(
+					projeto.querySelectorAll('.tag-tecnologia')
+				).map(tag => tag.textContent.trim().toLowerCase());
+
+				const encontrado =
+					titulo.includes(busca) ||
+					tecnologias.some(tecnologia => tecnologia === busca);
+
+				if (busca === '' || encontrado) {
+					projeto.style.display = '';
+					encontrados++;
+				} else {
+					projeto.style.display = 'none';
+				}
+			});
+
+			if (busca === '') {
+				resultadoBusca.textContent = 'Todos os projetos';
+			} else if (encontrados === 0) {
+				resultadoBusca.textContent = 'Nenhum projeto encontrado';
+			} else {
+				resultadoBusca.textContent =
+					encontrados === 1
+						? '1 projeto encontrado'
+						: `${encontrados} projetos encontrados`;
+			}
+		});
+	}
 });
