@@ -50,47 +50,153 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 		cabecalho?.classList.toggle('rolagem-ativa', topo > 50);
 	};
-
-
+	
 	const campoBusca = document.querySelector('#busca-projetos');
 	const resultadoBusca = document.querySelector('#resultado-busca');
 	const projetos = document.querySelectorAll('.projetos-box');
+	const filtrosLinguagens = document.querySelector('#filtros-linguagens');
+	let filtroLinguagemAtual = 'todos';
+
+	const linguagensConfiguradas = {
+		python: {
+			nome: 'Python',
+			icone: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg'
+		},
+
+		javascript: {
+			nome: 'JavaScript',
+			icone: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg'
+		},
+
+		typescript: {
+			nome: 'TypeScript',
+			icone: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg'
+		},
+
+		html: {
+			nome: 'HTML',
+			icone: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg'
+		},
+
+		css: {
+			nome: 'CSS',
+			icone: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg'
+		}
+	};
+
+	const linguagensEncontradas = new Set();
+
+	projetos.forEach(projeto => {
+		const tags = projeto.querySelectorAll('.tag-tecnologia');
+
+		tags.forEach(tag => {
+			const tecnologia = tag.textContent.trim().toLowerCase();
+
+			if (linguagensConfiguradas[tecnologia]) {
+				linguagensEncontradas.add(tecnologia);
+			}
+		});
+	});
+
+	if (filtrosLinguagens) {
+		const botaoTodas = document.createElement('button');
+
+		botaoTodas.type = 'button';
+		botaoTodas.className = 'filtro-linguagem ativo';
+		botaoTodas.dataset.linguagem = 'todos';
+
+		botaoTodas.innerHTML = `
+			<i class="bi bi-grid-3x3-gap"></i>
+			<span>Todas</span>
+		`;
+
+		filtrosLinguagens.appendChild(botaoTodas);
+
+		linguagensEncontradas.forEach(linguagem => {
+			const configuracao = linguagensConfiguradas[linguagem];
+			const botao = document.createElement('button');
+
+			botao.type = 'button';
+			botao.className = 'filtro-linguagem';
+			botao.dataset.linguagem = linguagem;
+
+			botao.innerHTML = `
+				<img src="${configuracao.icone}" alt="${configuracao.nome}">
+				<span>${configuracao.nome}</span>
+			`;
+
+			filtrosLinguagens.appendChild(botao);
+		});
+	}
+
+	function filtrarProjetos() {
+		const busca = campoBusca?.value.trim().toLowerCase() || '';
+
+		let encontrados = 0;
+
+		projetos.forEach(projeto => {
+			const titulo = projeto.querySelector('h3')?.textContent.toLowerCase() || '';
+
+			const tecnologias = Array.from(
+				projeto.querySelectorAll('.tag-tecnologia')
+			).map(tag =>
+				tag.textContent.trim().toLowerCase()
+			);
+
+			const correspondeLinguagem =
+				filtroLinguagemAtual === 'todos' ||
+				tecnologias.includes(filtroLinguagemAtual);
+
+			const correspondeBusca =
+				busca === '' ||
+				titulo.includes(busca) ||
+				tecnologias.some(tecnologia =>
+					tecnologia === busca
+				);
+
+			if (correspondeLinguagem && correspondeBusca) {
+				projeto.style.display = '';
+				encontrados++;
+			} else {
+				projeto.style.display = 'none';
+			}
+		});
+
+		if (busca === '' && filtroLinguagemAtual === 'todos') {
+			resultadoBusca.textContent = 'Todos os projetos';
+
+		} else if (encontrados === 0) {
+			resultadoBusca.textContent = 'Nenhum projeto encontrado';
+
+		} else {
+			resultadoBusca.textContent =
+				encontrados === 1
+					? '1 projeto encontrado'
+					: `${encontrados} projetos encontrados`;
+
+		}
+	}
 
 	if (campoBusca) {
-		campoBusca.addEventListener('input', () => {
-			const busca = campoBusca.value.trim().toLowerCase();
-			let encontrados = 0;
+		campoBusca.addEventListener('input', filtrarProjetos);
+	}
 
-			projetos.forEach(projeto => {
-				const titulo =
-					projeto.querySelector('h3')?.textContent.toLowerCase() || '';
+	if (filtrosLinguagens) {
+		filtrosLinguagens.addEventListener('click', evento => {
+			const botao = evento.target.closest('.filtro-linguagem');
 
-				const tecnologias = Array.from(
-					projeto.querySelectorAll('.tag-tecnologia')
-				).map(tag => tag.textContent.trim().toLowerCase());
+			if (!botao) return;
 
-				const encontrado =
-					titulo.includes(busca) ||
-					tecnologias.some(tecnologia => tecnologia === busca);
+			filtroLinguagemAtual = botao.dataset.linguagem;
 
-				if (busca === '' || encontrado) {
-					projeto.style.display = '';
-					encontrados++;
-				} else {
-					projeto.style.display = 'none';
-				}
-			});
+			filtrosLinguagens
+				.querySelectorAll('.filtro-linguagem')
+				.forEach(botao => {
+					botao.classList.remove('ativo');
+				});
 
-			if (busca === '') {
-				resultadoBusca.textContent = 'Todos os projetos';
-			} else if (encontrados === 0) {
-				resultadoBusca.textContent = 'Nenhum projeto encontrado';
-			} else {
-				resultadoBusca.textContent =
-					encontrados === 1
-						? '1 projeto encontrado'
-						: `${encontrados} projetos encontrados`;
-			}
+			botao.classList.add('ativo');
+			filtrarProjetos();
 		});
 	}
 });
