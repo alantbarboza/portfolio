@@ -654,6 +654,16 @@ pre::first-line {
 		gap: 5px;
 	}
 
+	@keyframes tecnologia-scroll {
+		0% {
+			transform: translateX(43%);
+		}
+
+		100% {
+			transform: translateX(-44%);
+		}
+	}
+
 	#experiencia {
 		margin-top: 15rem;
 		scroll-margin-top: 15px;
